@@ -40,7 +40,6 @@ const Navbar = () => {
     const navLinks = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/apartment">Apartment</NavLink></li>
-        <li><NavLink to="/dashboard">Dashboard</NavLink></li>
     </>
 
     return (
@@ -65,8 +64,12 @@ const Navbar = () => {
                                         </div>
                                     </div>
                                     <div className="hidden group-hover:block mt-2 p-2 space-y-2">
+                                       
                                         <h2 className="user-name">{user.displayName}</h2>
+                                        <div className='flex'>
                                         <button onClick={handleLogOut} className="w-full text-center font-bold hover:text-red-500">Logout</button>
+                                        <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -118,6 +121,7 @@ const Navbar = () => {
                                         <div className="hidden group-hover:block mt-2 p-2 space-y-2">
                                             <h2 className="user-name font-extralight">{user.displayName}</h2>
                                             <button onClick={handleLogOut} className="w-full text-center hover:text-red-500">Logout</button>
+                                            <li><NavLink to="/dashboard">Dashboard</NavLink></li>
                                         </div>
                                     </div>
 
