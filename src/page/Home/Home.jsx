@@ -1,19 +1,17 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import Banner from '../Banner/Banner';
 import BuildingDetails from '../BuildingDetails/BuildingDetails';
+import CouponsSection from '../CouponsSection/CouponsSection';
 
 
 
 const Home = () => {
 
     return (
-        <div>
-            <Helmet>
-                <title>Bistro Boss | Home</title>
-            </Helmet>
+        <div>           
             <Banner></Banner>
             <BuildingDetails></BuildingDetails>
+            <CouponsSection></CouponsSection>
         </div>
     );
 };

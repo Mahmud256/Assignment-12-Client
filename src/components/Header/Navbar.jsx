@@ -37,6 +37,12 @@ const Navbar = () => {
         setMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    const [isProfileOpen, setProfileOpen] = useState(false);
+
+    const toggleProfile = () => {
+        setProfileOpen(!isProfileOpen);
+    };
+
     const navLinks = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/apartment">Apartment</NavLink></li>
@@ -57,20 +63,20 @@ const Navbar = () => {
                         {navLinks}
                         {user ? (
                             <div className="group relative">
-                                <div className='flex items-center group-hover:bg-gray-200 cursor-pointer rounded-full p-2'>
+                                <div className='flex items-center bg-gray-200 cursor-pointer rounded-full p-2'>
                                     <div className="avatar">
-                                        <div className="w-12 rounded-full">
+                                        <div onClick={toggleProfile} className="w-12 rounded-full">
                                             <img className='im w-[25px]' src={user.photoURL} alt="" />
                                         </div>
                                     </div>
                                     <div className="hidden group-hover:block mt-2 p-2 space-y-2">
-                                       
                                         <h2 className="user-name">{user.displayName}</h2>
                                         <div className='flex'>
-                                        <button onClick={handleLogOut} className="w-full text-center font-bold hover:text-red-500">Logout</button>
-                                        <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                                            <button onClick={handleLogOut} className="w-full text-center font-bold hover:text-red-500">Logout</button>
+                                            <li><NavLink to="/dashboard">Dashboard</NavLink></li>
                                         </div>
                                     </div>
+
                                 </div>
 
                             </div>
