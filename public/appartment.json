@@ -1,0 +1,23 @@
+[
+    {
+        "aimage": "https://i.ibb.co/jv4nczZ/b1.jpg",
+        "aprtno": "101",
+        "flrno":2,
+        "block": "Gulshan-2",
+        "rent": 25000
+    },
+    {
+        "aimage": "https://i.ibb.co/XsGntMd/b2.jpg",
+        "aprtno": "201",
+        "flrno":3,
+        "block": "Gulshan-2",
+        "rent": 30000
+    },
+    {
+        "aimage": "https://i.ibb.co/hYytmLT/b3.jpg",
+        "aprtno": "301",
+        "flrno":4,
+        "block": "Gulshan-2",
+        "rent": 35000
+    }
+]

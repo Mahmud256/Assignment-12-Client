@@ -1,23 +1,26 @@
 // Import necessary libraries and styles
 
+import BuildingDetailsCard from "./BuildingDetailsCard";
 
 // Your BuildingDetails component
-const BuildingDetails = () => {
+const BuildingDetails = ({ allservice }) => {
+
+
   return (
     <section className="text-center py-16 bg-gray-100">
       <h2 className="text-4xl font-extrabold text-indigo-600 mb-8">About the Building</h2>
       <div className="max-w-2xl mx-auto text-lg text-gray-800">
         <p className="mb-4">
-          Welcome to our <span className="font-semibold text-indigo-600">iconic</span> building,
-          where modern architecture meets timeless elegance. Immerse yourself in the blend of art
-          and functionality, offering a unique space that caters to both business and leisure.
+          Welcome to GULSHAN DREAM NEST, where architectural elegance meets unparalleled luxury. Explore the charming details of this exquisite building that stands as a testament to innovation and sophistication, with state-of-the-art design and state-of-the-art facilities.
         </p>
-        <p className="mb-8">
-          With <span className="italic">cutting-edge design</span> and state-of-the-art facilities,
-          our building stands as a testament to <span className="underline">innovation</span> and
-          sophistication. Discover a space that transcends the ordinary and provides an
-          <span className="font-bold">unparalleled experience</span> for every visitor.
-        </p>
+      </div>
+
+      <div className="Allserv flex justify-around py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
+          {
+            allservice?.map(service => <BuildingDetailsCard key={service.id} service={service}></BuildingDetailsCard>)
+          }
+        </div>
       </div>
     </section>
   );

@@ -1,17 +1,29 @@
-import React from 'react';
+import logo from '../../assets/gulshan.png';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
-
     return (
         <div>
-            <footer className="footer footer-center p-10 bg-[#232324] text-base-content rounded">
-                <nav className="grid grid-flow-col gap-4 text-[#eef0f1]">
-                    <Link to={`/about`}>
-                        About us
+            <footer className="footer justify-between p-10 bg-[#232324] text-base-content">
+
+                <div className="text-[#eef0f1]">
+                    <h2 className='text-lg font-semibold'>Our Address</h2>
+                    <p className='text-start'>
+                        Gulshan Dream Nest Centre,<br />
+                        43 North Commercial Area,<br />
+                        Gulshan-2, Dhaka-1212, Bangladesh
+                    </p>
+                </div>
+
+                <nav className="grid grid-flow-col gap-4 text-[#eef0f1] mt-4">
+                    <Link to={`/story`}>
+                        Our Story
                     </Link>
                     <Link to={`/`}>
                         Home
+                    </Link>
+                    <Link to={`/contact`}>
+                        Contact Us
                     </Link>
                 </nav>
                 <nav>
@@ -32,12 +44,11 @@ const Footer = () => {
                             </svg>
                         </a>
                     </div>
-
                 </nav>
-                <aside>
-                    <p className='text-[#eef0f1]'>Copyright © 2023 - All right reserved by Online Group Study Assignment</p>
-                </aside>
             </footer>
+            <aside className=" bg-[#232324] text-center">
+                <p className='text-[#eef0f1]'>Copyright © 2023 - All right reserved by Online Group Study Assignment</p>
+            </aside>
         </div>
     );
 };

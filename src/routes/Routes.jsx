@@ -5,6 +5,7 @@ import Login from "../page/Login/Login";
 import Home from "../page/Home/Home";
 import LoginAuth from "../page/Login/LoginAuth";
 import Register from "../page/Register/Register";
+import Apartment from "../page/Apartment/Apartment";
 
 const router = createBrowserRouter([
     {
@@ -14,7 +15,8 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home></Home>
+                element: <Home></Home>,
+                loader: () => fetch('/BuildingDetails.json')
             },
             {
                 path: '/login',
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>
+            },
+            {
+                path: '/apartment',
+                element: <Apartment></Apartment>
             }
         ]
     },

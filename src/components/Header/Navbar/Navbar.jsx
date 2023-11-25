@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa'; // Import FontAwesome icons
-import { AuthContext } from '../../providers/AuthProvider';
-import logo from '../../assets/gulshan.png'
+import { AuthContext } from '../../../providers/AuthProvider';
+import logo from '../../../assets/gulshan.png'
 import Swal from 'sweetalert2';
 
 const Navbar = () => {
