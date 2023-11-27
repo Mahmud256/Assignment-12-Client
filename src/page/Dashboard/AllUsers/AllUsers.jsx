@@ -14,23 +14,59 @@ const AllUsers = () => {
         }
     })
 
-    const handleMakeAdmin = user => {
-        console.log(user);
-        axiosSecure.patch(`/users/admin/${user._id}`)
-            .then(res => {
+ 
+        const handleMakeAdmin = user => {
+            if (user.role !== 'admin') {
+                // Display an error message or handle it as needed
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Access Denied',
+                    text: 'You do not have permission to perform this action.',
+                });
+                console.error('User does not have admin role');
+                return;
+            }
+            console.log(user);
+            axiosSecure.patch(`/users/admin/${user._id}`)
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data.modifiedCount > 0) {
+                        refetch();
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: `${user.name} is an Admin Now!`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+        }
+    
 
-                console.log(res.data)
+
+
+
+    const handleMakeMember = (user) => {
+        console.log(user);
+        axiosSecure.patch(`/users/member/${user._id}`)
+            .then((res) => {
+                console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     refetch();
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: `${user.name} is an Admin Now!`,
+                        title: `${user.name} is a Member Now!`,
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 1500,
                     });
                 }
             })
+            .catch((error) => {
+                console.error("Error making user a member:", error);
+                // Handle error as needed
+            });
     }
 
     const handleDeleteUser = user => {
@@ -61,6 +97,8 @@ const AllUsers = () => {
         });
     }
 
+
+
     return (
         <div>
             <div className="flex justify-evenly my-4">
@@ -86,12 +124,22 @@ const AllUsers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                    {user.role === 'admin' ? 'Admin' : <button
-                                        onClick={() => handleMakeAdmin(user)}
-                                        className="btn btn-lg bg-orange-500">
-                                        <FaUsers className="text-white 
-                                        text-2xl"></FaUsers>
-                                    </button>}
+                                    {user.role === 'admin' ? 'Admin' : user.role === 'member' ? 'Member' : (
+                                        <>
+                                            <button
+                                                onClick={() => handleMakeAdmin(user)}
+                                                className="btn btn-lg bg-orange-500"
+                                            >
+                                                <FaUsers className="text-white text-2xl" />
+                                            </button>
+                                            <button
+                                                onClick={() => handleMakeMember(user)}
+                                                className="btn btn-lg bg-blue-500" // Change the color as needed
+                                            >
+                                                Make Member
+                                            </button>
+                                        </>
+                                    )}
                                 </td>
                                 <td>
                                     <button

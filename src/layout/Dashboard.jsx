@@ -1,19 +1,21 @@
-import { FaBook, FaCalendar, FaList, FaMicrophone, FaPaypal, FaUsers, FaUtensils } from 'react-icons/fa';
+import { FaBook, FaCalendar, FaHome, FaList, FaMicrophone, FaPaypal, FaUsers, FaUtensils } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { NavLink, Outlet } from 'react-router-dom';
 import useAdmin from '../hooks/useAdmin';
 import useBook from '../hooks/useBook';
+import useMember from '../hooks/useMember';
 
 const Dashboard = () => {
     const [book] = useBook();
-   const [isAdmin] = useAdmin();
+    const [isAdmin] = useAdmin();
+    const [isMember] = useMember();
     // const isAdmin = true;
 
     return (
         <div className='flex'>
             {/* dashboard side bar */}
-            <div className="w-64 min-h-screen bg-orange-400">
+            <div className="w-64 min-h-screen bg-stone-300">
                 <ul className="menu p-4">
                     {
                         isAdmin ? <>
@@ -44,16 +46,16 @@ const Dashboard = () => {
                             </li>
                         </>
                             :
-                            <>
+                            isMember ? <>
                                 <li>
-                                    <NavLink to="/dashboard/userHome">
+                                    <NavLink to="/dashboard/memberHome">
                                         <CgProfile />
                                         My Profile
                                     </NavLink>
                                 </li>
 
                                 <li>
-                                    <NavLink to="/dashboard/reservation">
+                                    <NavLink to="/dashboard/announcement">
                                         <FaMicrophone />
                                         Announcements
                                     </NavLink>
@@ -69,25 +71,37 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink to="/dashboard/book">
                                         <FaCalendar />
-                                        MY book({book.length})
+                                        Make Payment({book.length})
                                     </NavLink>
                                 </li>
 
-                                {/* <li>
-                                    <NavLink to="/dashboard/review">
-                                        <FaPaypal />
-                                        ADD REVIEW
-                                    </NavLink>
-                                </li>
-
-                                <li>
-                                    <NavLink to="/dashboard/bookings">
-                                        <FaList />
-                                        MY BOOKINGS
-                                    </NavLink>
-                                </li> */}
                             </>
+                                :
+                                <>
+                                    <li>
+                                        <NavLink to="/dashboard/userHome">
+                                            <CgProfile />
+                                            My Profile
+                                        </NavLink>
+                                    </li>
+
+                                    <li>
+                                        <NavLink to="/dashboard/announcement">
+                                            <FaMicrophone />
+                                            Announcements
+                                        </NavLink>
+                                    </li>
+
+                                </>
                     }
+
+                    <div className="divider"></div>
+                    <li>
+                        <NavLink to="/">
+                            <FaHome />
+                            HOME
+                        </NavLink>
+                    </li>
 
                 </ul>
             </div>

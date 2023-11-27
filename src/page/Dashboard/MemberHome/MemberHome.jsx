@@ -1,8 +1,8 @@
 import React from 'react';
-import useAuth from "../../../hooks/useAuth";
-import useBook from "../../../hooks/useBook";
+import useBook from '../../../hooks/useBook';
+import useAuth from '../../../hooks/useAuth';
 
-const UserHome = () => {
+const MemberHome = () => {
     const { user } = useAuth();
     const [book] = useBook();
     const { flrno, block, aprtno, rent } = book[0] || {};
@@ -32,4 +32,4 @@ const UserHome = () => {
     );
 };
 
-export default UserHome;
+export default MemberHome;

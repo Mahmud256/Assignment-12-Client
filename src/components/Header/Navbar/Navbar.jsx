@@ -6,11 +6,13 @@ import logo from '../../../assets/gulshan.png'
 import Swal from 'sweetalert2';
 import useBook from '../../../hooks/useBook';
 import useAdmin from '../../../hooks/useAdmin';
+import useMember from '../../../hooks/useMember';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [book] = useBook();
     const [isAdmin] = useAdmin();
+    const [isMember] = useMember();
 
     const handleLogOut = () => {
         logOut()
@@ -87,8 +89,13 @@ const Navbar = () => {
                                                 user && isAdmin && <li><Link to="/dashboard/adminHome">Dashboard</Link></li>
                                             }
                                             {
-                                                user && !isAdmin && <li><Link to="/dashboard/userHome">Dashboard</Link></li>
+                                                user && !isAdmin && !isMember && <li><Link to="/dashboard/userHome">Dashboard</Link></li>
                                             }
+                                            {
+                                                user && isMember && <li><Link to="/dashboard/memberHome">Dashboard</Link></li>
+                                            }
+
+
                                         </div>
                                     </div>
 

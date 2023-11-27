@@ -14,6 +14,8 @@ import AllUsers from "../page/Dashboard/AllUsers/AllUsers";
 import AdminRoute from "./AdminRoute";
 import AdminHome from "../page/Dashboard/AdminHome/AdminHome";
 import Book from "../page/Dashboard/Book/Book";
+import MemberHome from "../page/Dashboard/MemberHome/MemberHome";
+import MemberRoute from "./MemberRoute";
 
 const router = createBrowserRouter([
     {
@@ -55,7 +57,7 @@ const router = createBrowserRouter([
             // normal user
             {
                 path: 'userHome',
-                element: <UserHome></UserHome>
+                element: <PrivateRoute><UserHome></UserHome></PrivateRoute>
             },
             {
                 path: 'book',
@@ -73,6 +75,10 @@ const router = createBrowserRouter([
             {
                 path: 'users',
                 element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: 'memberHome',
+                element: <MemberRoute><MemberHome></MemberHome></MemberRoute>
             },
             {
                 path: 'adminHome',
