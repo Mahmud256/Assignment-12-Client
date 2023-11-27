@@ -1,18 +1,19 @@
-import React, { useContext, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
-import { updateProfile } from 'firebase/auth';
-import { AuthContext } from '../../providers/AuthProvider';
+import { useContext, useState } from "react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { AuthContext } from "../../providers/AuthProvider";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
+import LoginAuth from "../Login/LoginAuth";
 
 
 const Register = () => {
+    const axiosPublic = useAxiosPublic();
     const { createUser } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
 
     const [registerError, setRegisterError] = useState('');
-
-    const [user, setUser] = useState(null);
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -55,25 +56,39 @@ const Register = () => {
 
         try {
             const result = await createUser(email, password);
-            const user = result.user;
-            setUser(user);
-            console.log("IM:", user);
+            const loggedUser = result.user;
+            // setUser(userInfo);
+            console.log("IM:", loggedUser);
 
-            await updateProfile(user, {
+            
+
+            await updateProfile(loggedUser,{
                 displayName: name, // Set the display name
                 photoURL: photo,   // Set the photo URL
-            });
+              });
 
 
+              const userInfo = {
+                email: loggedUser?.email,
+                name: loggedUser?.displayName
+              };
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Your Account Created Successfully!',
-                showConfirmButton: false,
-                timer: 10000 // 10 seconds
-            });
 
-            navigate(location?.state ? location.state : '/');
+            axiosPublic.post('/users', userInfo)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        console.log('user added to the database')
+
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'User created successfully.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate(location?.state ? location.state : '/');
+                    }
+                })
         } catch (error) {
             console.error(error);
             setRegisterError(error.message);
@@ -121,6 +136,8 @@ const Register = () => {
                             </form>
 
                             {registerError && <div className="alert alert-error">{registerError}</div>}
+
+                            <LoginAuth/>
 
                             <p className='text-center'>Already have an account <Link className='text-blue-700' to="/login">Login</Link></p>
                         </div>

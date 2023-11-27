@@ -7,6 +7,13 @@ import LoginAuth from "../page/Login/LoginAuth";
 import Register from "../page/Register/Register";
 import Apartment from "../page/Apartment/Apartment";
 import Story from "../page/Story/Story";
+import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../layout/Dashboard";
+import UserHome from "../page/Dashboard/UserHome/UserHome";
+import AllUsers from "../page/Dashboard/AllUsers/AllUsers";
+import AdminRoute from "./AdminRoute";
+import AdminHome from "../page/Dashboard/AdminHome/AdminHome";
+import Book from "../page/Dashboard/Book/Book";
 
 const router = createBrowserRouter([
     {
@@ -41,5 +48,51 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: 'dashboard',
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+         children: [
+            // normal user
+            {
+                path: 'userHome',
+                element: <UserHome></UserHome>
+            },
+            {
+                path: 'book',
+                element: <Book></Book>
+            },
+            // {
+            //     path: 'payment',
+            //     element: <Payment></Payment>
+            // },
+            // {
+            //     path: 'paymentHistory',
+            //     element: <PaymentHistory></PaymentHistory>
+            // },
+            // admin routes
+            {
+                path: 'users',
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: 'adminHome',
+                element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+            }
+        //     {
+        //         path: 'additems',
+        //         element: <AdminRoute><AddItems></AddItems></AdminRoute>
+        //     },
+        //     {
+        //         path: 'manageItems',
+        //         element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
+        //     },
+        //     {
+        //         path: 'updateItem/:id',
+        //         element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
+        //         loader: ({ params }) => fetch(`https://bistro-boss-restaurant-server-beta.vercel.app/menu/${params.id}`)
+        //     }
+
+         ]
+    }
 ]);
 export default router;  

@@ -1,11 +1,18 @@
 // Import necessary libraries and styles
-
 import BuildingDetailsCard from "./BuildingDetailsCard";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+
+// import required modules
+import { Pagination, Navigation } from 'swiper/modules';;
 
 // Your BuildingDetails component
 const BuildingDetails = ({ allservice }) => {
-
-
   return (
     <section className="text-center py-16 bg-gray-100">
       <h2 className="text-4xl font-extrabold text-indigo-600 mb-8">About the Building</h2>
@@ -15,12 +22,26 @@ const BuildingDetails = ({ allservice }) => {
         </p>
       </div>
 
-      <div className="Allserv flex justify-around py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
-          {
-            allservice?.map(service => <BuildingDetailsCard key={service.id} service={service}></BuildingDetailsCard>)
-          }
-        </div>
+      <div className="Allserv flex justify-center lg:mx-24 py-12">
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={30}
+          loop={true}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          modules={[Pagination, Navigation]}
+          className="mySwiper"
+        >
+          <div className="">
+            {allservice?.map(service => (
+              <SwiperSlide key={service.id}>
+                <BuildingDetailsCard service={service} />
+              </SwiperSlide>
+            ))}
+          </div>
+        </Swiper>
       </div>
     </section>
   );

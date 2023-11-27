@@ -19,5 +19,26 @@
         "flrno":4,
         "block": "Gulshan-2",
         "rent": 35000
+    },
+    {
+        "aimage": "https://i.ibb.co/7tcFdZB/d1.jpg",
+        "aprtno": "401",
+        "flrno":5,
+        "block": "Gulshan-2",
+        "rent": 25000
+    },
+    {
+        "aimage": "https://i.ibb.co/R7Q2Dky/d2.jpg",
+        "aprtno": "501",
+        "flrno":6,
+        "block": "Gulshan-2",
+        "rent": 30000
+    },
+    {
+        "aimage": "https://i.ibb.co/10bjdVG/d3.jpg",
+        "aprtno": "601",
+        "flrno":7,
+        "block": "Gulshan-2",
+        "rent": 35000
     }
 ]

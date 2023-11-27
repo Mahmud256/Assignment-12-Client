@@ -1,12 +1,16 @@
 import { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa'; // Import FontAwesome icons
+import { FaBars, FaCalendar, FaTimes } from 'react-icons/fa'; // Import FontAwesome icons
 import { AuthContext } from '../../../providers/AuthProvider';
 import logo from '../../../assets/gulshan.png'
 import Swal from 'sweetalert2';
+import useBook from '../../../hooks/useBook';
+import useAdmin from '../../../hooks/useAdmin';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [book] = useBook();
+    const [isAdmin] = useAdmin();
 
     const handleLogOut = () => {
         logOut()
@@ -46,6 +50,12 @@ const Navbar = () => {
     const navLinks = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/apartment">Apartment</NavLink></li>
+        {/* <li>
+            <NavLink to="/book" className="hover:text-white">
+                <FaCalendar size={20} />
+                <div className='badge badge-secondary'>+{book.length}</div>
+            </NavLink>
+        </li> */}
     </>
 
     return (
@@ -73,7 +83,12 @@ const Navbar = () => {
                                         <h2 className="user-name">{user.displayName}</h2>
                                         <div className='flex'>
                                             <button onClick={handleLogOut} className="w-full text-center font-bold hover:text-red-500">Logout</button>
-                                            <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                                            {
+                                                user && isAdmin && <li><Link to="/dashboard/adminHome">Dashboard</Link></li>
+                                            }
+                                            {
+                                                user && !isAdmin && <li><Link to="/dashboard/userHome">Dashboard</Link></li>
+                                            }
                                         </div>
                                     </div>
 

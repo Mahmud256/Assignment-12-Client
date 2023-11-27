@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../providers/AuthProvider';
+import useAuth from '../hooks/useAuth';
 
 const PrivateRoute = ({ children }) => {
-    const { user, loading } = useContext(AuthContext); // Assuming you have a token in your AuthContext
+    const { user, loading } = useAuth(); // Assuming you have a token in your AuthContext
     const location = useLocation();
     console.log(location.pathname);
     if (loading) {
