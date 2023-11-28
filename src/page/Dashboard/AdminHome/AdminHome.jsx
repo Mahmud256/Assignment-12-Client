@@ -1,15 +1,26 @@
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import { FaBook, FaDollarSign, FaUsers } from 'react-icons/fa';
+import { FaDollarSign, FaUsers } from 'react-icons/fa';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, PieChart, Pie, Legend } from 'recharts';
+import useBook from '../../../hooks/useBook';
+import { MdMeetingRoom } from 'react-icons/md';
 
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const AdminHome = () => {
     const { user } = useAuth();
+    const [book] = useBook();
+    const { flrno, block, aprtno, rent } = book[0] || {};
     const axiosSecure = useAxiosSecure();
+    const { data: users = [] } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/users');
+            return res.data;
+        }
+    })
 
     const { data: stats = {} } = useQuery({
         queryKey: ['admin-stats'],
@@ -20,9 +31,9 @@ const AdminHome = () => {
     });
 
     const { data: chartData = [] } = useQuery({
-        queryKey: ['order-stats'],
+        queryKey: ['booked-stats'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/order-stats');
+            const res = await axiosSecure.get('/booked-stats');
             return res.data;
         }
     })
@@ -56,17 +67,30 @@ const AdminHome = () => {
     };
 
     const pieChartData = chartData.map(data => {
-        return {name: data.category, value: data.revenue}
+        return { name: data.aprtno, value: data.revenue }
     })
 
     return (
         <div>
-            <h2 className="text-3xl">
-                <span>Hi, Welcome </span>
-                {
-                    user?.displayName ? user.displayName : 'Back'
-                }
-            </h2>
+            <div className="max-w-md mx-auto bg-white rounded-md overflow-hidden border">
+                <div className="avatar flex justify-center p-5">
+                    <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        <img src={user.photoURL} alt="Profile" />
+                    </div>
+                </div>
+                <div className="p-6">
+                    {users
+                        .filter((user) => user.role === 'admin')
+                        .map((user) => (
+                            <div key={user._id}>
+                                <h1 className="text-2xl font-bold mb-2">Name: {user.name}</h1>
+                                <p className="text-gray-600 mb-4">Email: {user.email}</p>
+                                <p className="text-gray-600 mb-4">Role: {user.role}</p>
+                            </div>
+                        ))}
+
+                </div>
+            </div>
             <div className="stats shadow">
 
                 <div className="stat">
@@ -75,7 +99,15 @@ const AdminHome = () => {
                     </div>
                     <div className="stat-title">Revenue</div>
                     <div className="stat-value">${stats.revenue}</div>
-                    <div className="stat-desc">Jan 1st - Feb 1st</div>
+                </div>
+
+                <div className="stat">
+                    <div className="stat-figure text-secondary">
+                        <MdMeetingRoom className='text-3xl'></MdMeetingRoom>
+                    </div>
+                    <div className="stat-title">Total Rooms</div>
+                    <div className="stat-value">{stats.apartmentRooms}</div>
+                    <div className="stat-desc">↗︎ 400 (22%)</div>
                 </div>
 
                 <div className="stat">
@@ -87,27 +119,26 @@ const AdminHome = () => {
                     <div className="stat-desc">↗︎ 400 (22%)</div>
                 </div>
 
-
                 <div className="stat">
                     <div className="stat-figure text-secondary">
-                        <FaBook className='text-3xl'></FaBook>
+                        <FaUsers className='text-3xl'></FaUsers>
                     </div>
-                    <div className="stat-title">Menu Items</div>
-                    <div className="stat-value">{stats.menuItems}</div>
-                    <div className="stat-desc">↗︎ 400 (22%)</div>
+                    <div className="stat-title">Members</div>
+                    <div className="stat-value">{users.filter(user => user.role === 'member').length}</div>
                 </div>
+
 
                 <div className="stat">
                     <div className="stat-figure text-secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                     </div>
-                    <div className="stat-title">Orders</div>
-                    <div className="stat-value">{stats.orders}</div>
+                    <div className="stat-title">Booked Room</div>
+                    <div className="stat-value">{stats.books}</div>
                     <div className="stat-desc">↘︎ 90 (14%)</div>
                 </div>
 
             </div>
-            <div className="flex">
+            {/* <div className="flex">
                 <div className="w-1/2">
                     <BarChart
                         width={500}
@@ -121,14 +152,16 @@ const AdminHome = () => {
                         }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="category" />
+                        <XAxis dataKey="aprtno" />
                         <YAxis />
-                        <Bar dataKey="quantity" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
+                        <Bar dataKey="revenue" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
                             {chartData.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={colors[index % 6]} />
                             ))}
                         </Bar>
                     </BarChart>
+                   
+
                 </div>
                 <div className="w-1/2">
                     <PieChart width={400} height={400}>
@@ -149,7 +182,7 @@ const AdminHome = () => {
                         <Legend></Legend>
                     </PieChart>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

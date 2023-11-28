@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
-import useCart from "../../../hooks/useCart";
+import useBook from "../../../hooks/useBook";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
@@ -15,14 +15,16 @@ const CheckoutForm = () => {
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
-    const [cart, refetch] = useCart();
+    const [book, refetch] = useBook();
     const navigate = useNavigate();
 
-    const totalPrice = cart.reduce((total, item) => total + item.price, 0)
+    const totalPrice = book.reduce((total, room) => total + room.rent, 0)
+
+    console.log("Book:", book);
 
     useEffect(() => {
         if (totalPrice > 0) {
-            axiosSecure.post('/create-payment-intent', { price: totalPrice })
+            axiosSecure.post('/create-payment-intent', { rent: totalPrice })
                 .then(res => {
                    // console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
@@ -81,11 +83,11 @@ const CheckoutForm = () => {
                 // now save the payment in the database
                 const payment = {
                     email: user.email,
-                    price: totalPrice,
+                    rent: totalPrice,
                     transactionId: paymentIntent.id,
                     date: new Date(), // utc date convert. use moment js to 
-                    cartIds: cart.map(item => item._id),
-                    menuItemIds: cart.map(item => item.menuId),
+                    bookIds: book.map(room => room._id),
+                    apartmentRoomIds: book.map(room => room.apartmentId),
                     status: 'pending'
                 }
 

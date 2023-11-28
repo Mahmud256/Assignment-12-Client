@@ -16,6 +16,8 @@ import AdminHome from "../page/Dashboard/AdminHome/AdminHome";
 import Book from "../page/Dashboard/Book/Book";
 import MemberHome from "../page/Dashboard/MemberHome/MemberHome";
 import MemberRoute from "./MemberRoute";
+import Payment from "../page/Dashboard/Payment/Payment";
+import PaymentHistory from "../page/Dashboard/PaymentHistory/PaymentHistory";
 
 const router = createBrowserRouter([
     {
@@ -61,16 +63,16 @@ const router = createBrowserRouter([
             },
             {
                 path: 'book',
-                element: <Book></Book>
+                element: <PrivateRoute><Book></Book></PrivateRoute>
             },
-            // {
-            //     path: 'payment',
-            //     element: <Payment></Payment>
-            // },
-            // {
-            //     path: 'paymentHistory',
-            //     element: <PaymentHistory></PaymentHistory>
-            // },
+            {
+                path: 'payment',
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>
+            },
+            {
+                path: 'paymentHistory',
+                element: <PrivateRoute><PaymentHistory></PaymentHistory></PrivateRoute>
+            },
             // admin routes
             {
                 path: 'users',

@@ -2,16 +2,15 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import useBook from '../../../hooks/useBook';
 import { FaTrashAlt } from 'react-icons/fa';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Book = () => {
     const [book, refetch] = useBook();
     const { user } = useAuth();
     const [selectedMonth, setSelectedMonth] = useState(format(new Date(), 'MMMM'));
     const { flrno, block, aprtno, rent } = book[0] || {};
-    // const totalPrice = book.reduce((total, room) => total + room.rent, 0);
     const [couponCode, setCouponCode] = useState('');
     const [discount, setDiscount] = useState(0);
 
@@ -24,7 +23,11 @@ const Book = () => {
             setDiscount(0.25); // 25% discount
         } else {
             // Handle invalid coupon code
-            // You can display an error message or take other actions
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Coupon Code',
+                text: 'Please enter a valid coupon code.',
+            });
         }
     };
     // const axiosSecure = useAxiosSecure();
@@ -32,6 +35,8 @@ const Book = () => {
     // const handleDelete = (id) => {
     //     ... (previous delete code)
     // }
+
+   
 
     return (
         <div>
@@ -43,7 +48,7 @@ const Book = () => {
                         <button className="btn btn-primary">Pay</button>
                     </Link>
                 ) : (
-                    <button disabled className="btn btn-primary">
+                    <button  disabled className="btn btn-primary">
                         Pay
                     </button>
                 )}
@@ -98,7 +103,7 @@ const Book = () => {
                                 <td>{flrno}</td>
                                 <td>{block}</td>
                                 <td>{aprtno}</td>
-                                <td>{rent}</td>
+                                <td>{totalPriceWithDiscount}</td>
                                 <td>
                                     <div className="mb-4 form-control">{selectedMonth}</div>
                                 </td>

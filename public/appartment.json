@@ -2,42 +2,84 @@
     {
         "aimage": "https://i.ibb.co/jv4nczZ/b1.jpg",
         "aprtno": "101",
-        "flrno":2,
+        "flrno": 2,
         "block": "Gulshan-2",
         "rent": 25000
     },
     {
         "aimage": "https://i.ibb.co/XsGntMd/b2.jpg",
         "aprtno": "201",
-        "flrno":3,
+        "flrno": 3,
         "block": "Gulshan-2",
         "rent": 30000
     },
     {
         "aimage": "https://i.ibb.co/hYytmLT/b3.jpg",
         "aprtno": "301",
-        "flrno":4,
+        "flrno": 4,
         "block": "Gulshan-2",
         "rent": 35000
     },
     {
         "aimage": "https://i.ibb.co/7tcFdZB/d1.jpg",
         "aprtno": "401",
-        "flrno":5,
+        "flrno": 5,
         "block": "Gulshan-2",
         "rent": 25000
     },
     {
         "aimage": "https://i.ibb.co/R7Q2Dky/d2.jpg",
         "aprtno": "501",
-        "flrno":6,
+        "flrno": 6,
         "block": "Gulshan-2",
         "rent": 30000
     },
     {
         "aimage": "https://i.ibb.co/10bjdVG/d3.jpg",
         "aprtno": "601",
-        "flrno":7,
+        "flrno": 7,
+        "block": "Gulshan-2",
+        "rent": 35000
+    },
+    {
+        "aimage": "https://i.ibb.co/Cm6YPyZ/b4.jpg",
+        "aprtno": "701",
+        "flrno": 8,
+        "block": "Gulshan-2",
+        "rent": 25000
+    },
+    {
+        "aimage": "https://i.ibb.co/yhnYVnG/b5.jpg",
+        "aprtno": "801",
+        "flrno": 9,
+        "block": "Gulshan-2",
+        "rent": 30000
+    },
+    {
+        "aimage": "https://i.ibb.co/GWY690D/b6.jpg",
+        "aprtno": "901",
+        "flrno": 10,
+        "block": "Gulshan-2",
+        "rent": 35000
+    },
+    {
+        "aimage": "https://i.ibb.co/j8681JX/b4.jpg",
+        "aprtno": "1001",
+        "flrno": 11,
+        "block": "Gulshan-2",
+        "rent": 25000
+    },
+    {
+        "aimage": "https://i.ibb.co/10Lpf73/b6.jpg",
+        "aprtno": "1002",
+        "flrno": 12,
+        "block": "Gulshan-2",
+        "rent": 30000
+    },
+    {
+        "aimage": "https://i.ibb.co/n3HD6GG/b6.jpg",
+        "aprtno": "1003",
+        "flrno": 13,
         "block": "Gulshan-2",
         "rent": 35000
     }

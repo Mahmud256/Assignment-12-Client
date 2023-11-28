@@ -69,33 +69,37 @@ const AllUsers = () => {
             });
     }
 
-    const handleDeleteUser = user => {
+    const handleDeleteUser = (user) => {
+        const isMember = user.role === 'member';
+    
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: isMember ? 'Yes, USER it!' : 'Yes, delete it!',
         }).then((result) => {
             console.log(result);
             if (result.isConfirmed) {
-
                 axiosSecure.delete(`/users/${user._id}`)
-                    .then(res => {
-                        if (res.data.deletedCount > 0) {
+                refetch().then(() => {
+                        // if (res.data.deletedCount > 0) {
                             refetch();
                             Swal.fire({
-                                title: "Deleted!",
-                                text: "Your file has been deleted.",
-                                icon: "success"
+                                title: isMember ? `${user.name} is a USER Now!` : 'Deleted!',
+                                text: isMember
+                                    ? 'Your file has been create Normal user.'
+                                    : 'Your file has been deleted.',
+                                icon: 'success',
                             });
-                        }
-                    })
+                        // }
+                    });
             }
         });
-    }
+    };
+    
 
 
 
@@ -124,7 +128,7 @@ const AllUsers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                    {user.role === 'admin' ? 'Admin' : user.role === 'member' ? 'Member' : (
+                                    {user.role === 'admin' ? 'Admin' : user.role === 'member' ? 'Member' :(
                                         <>
                                             <button
                                                 onClick={() => handleMakeAdmin(user)}

@@ -1,4 +1,4 @@
-import { FaBook, FaCalendar, FaHome, FaList, FaMicrophone, FaPaypal, FaUsers, FaUtensils } from 'react-icons/fa';
+import { FaBook, FaCalendar, FaHome, FaMicrophone, FaPaypal, FaUsers } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { NavLink, Outlet } from 'react-router-dom';
@@ -25,24 +25,19 @@ const Dashboard = () => {
                                     Admin Profile</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/addItems">
-                                    <FaUtensils></FaUtensils>
-                                    Add Items</NavLink>
+                                <NavLink to="/dashboard/users">
+                                    <FaUsers></FaUsers>
+                                    Manage Members</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/manageItems">
-                                    <FaList></FaList>
-                                    Manage Items</NavLink>
+                                <NavLink to="/dashboard/announcement">
+                                    <FaMicrophone></FaMicrophone>
+                                    Make Announcement</NavLink>
                             </li>
                             <li>
                                 <NavLink to="/dashboard/bookings">
                                     <FaBook></FaBook>
-                                    Manage Bookings</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/dashboard/users">
-                                    <FaUsers></FaUsers>
-                                    All Users</NavLink>
+                                    Manage Coupons</NavLink>
                             </li>
                         </>
                             :
