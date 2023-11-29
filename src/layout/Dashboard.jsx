@@ -30,9 +30,20 @@ const Dashboard = () => {
                                     Manage Members</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/announcement">
+                                <NavLink to="/dashboard/agreement">
+                                    <FaUsers></FaUsers>
+                                    Agreement Request</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/create">
                                     <FaMicrophone></FaMicrophone>
                                     Make Announcement</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/announcement">
+                                    <FaMicrophone />
+                                    Announcements
+                                </NavLink>
                             </li>
                             <li>
                                 <NavLink to="/dashboard/bookings">

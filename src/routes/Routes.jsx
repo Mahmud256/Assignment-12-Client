@@ -18,6 +18,9 @@ import MemberHome from "../page/Dashboard/MemberHome/MemberHome";
 import MemberRoute from "./MemberRoute";
 import Payment from "../page/Dashboard/Payment/Payment";
 import PaymentHistory from "../page/Dashboard/PaymentHistory/PaymentHistory";
+import CreateAnnouncement from "../page/Dashboard/CreateAnnouncement/CreateAnnouncement";
+import Announcement from "../page/Dashboard/Announcement/Announcement";
+import Agreement from "../page/Dashboard/Agreement/Agreement";
 
 const router = createBrowserRouter([
     {
@@ -85,6 +88,19 @@ const router = createBrowserRouter([
             {
                 path: 'adminHome',
                 element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+            },
+            {
+                path: 'agreement',
+                element: <AdminRoute><Agreement></Agreement></AdminRoute>
+            },
+            {
+                path: 'create',
+                element: <AdminRoute><CreateAnnouncement></CreateAnnouncement></AdminRoute>
+            },
+            {
+                path: 'announcement',
+                element: <Announcement></Announcement>
+                //loader: () => fetch("http://localhost:5000/announcement")
             }
         //     {
         //         path: 'additems',

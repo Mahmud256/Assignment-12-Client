@@ -88,7 +88,7 @@ const CheckoutForm = () => {
                     date: new Date(), // utc date convert. use moment js to 
                     bookIds: book.map(room => room._id),
                     apartmentRoomIds: book.map(room => room.apartmentId),
-                    status: 'pending'
+                    status: 'active'
                 }
 
                 const res = await axiosSecure.post('/payments', payment);

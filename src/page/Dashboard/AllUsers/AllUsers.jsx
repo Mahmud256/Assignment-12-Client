@@ -122,40 +122,39 @@ const AllUsers = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            users.map((user, index) => <tr key={user._id}>
-                                <th>{index + 1}</th>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>
-                                    {user.role === 'admin' ? 'Admin' : user.role === 'member' ? 'Member' :(
-                                        <>
-                                            <button
-                                                onClick={() => handleMakeAdmin(user)}
-                                                className="btn btn-lg bg-orange-500"
-                                            >
-                                                <FaUsers className="text-white text-2xl" />
-                                            </button>
-                                            <button
-                                                onClick={() => handleMakeMember(user)}
-                                                className="btn btn-lg bg-blue-500" // Change the color as needed
-                                            >
-                                                Make Member
-                                            </button>
-                                        </>
-                                    )}
-                                </td>
-                                <td>
+                {users.map((user, index) => (
+                    <tr key={user._id}>
+                        <th>{index + 1}</th>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>
+                            {user.role === 'admin' ? 'Admin' : user.role === 'member' ? 'Member' : (
+                                <>
                                     <button
-                                        onClick={() => handleDeleteUser(user)}
-                                        className="btn btn-ghost btn-lg">
-                                        <FaTrashAlt className="text-red-600"></FaTrashAlt>
+                                        onClick={() => handleMakeAdmin(user)}
+                                        className="btn btn-lg bg-orange-500"
+                                    >
+                                        <FaUsers className="text-white text-2xl" />
                                     </button>
-                                </td>
-                            </tr>)
-                        }
-
-                    </tbody>
+                                    <button
+                                        onClick={() => handleMakeMember(user)}
+                                        className="btn btn-lg bg-blue-500"
+                                    >
+                                        Make Member
+                                    </button>
+                                </>
+                            )}
+                        </td>
+                        <td>
+                            <button
+                                onClick={() => handleDeleteUser(user)}
+                                className="btn btn-ghost btn-lg">
+                                <FaTrashAlt className="text-red-600"></FaTrashAlt>
+                            </button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
                 </table>
             </div>
         </div>

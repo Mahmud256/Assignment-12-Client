@@ -6,48 +6,77 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
 
 const ApartmentCard = ({ room }) => {
-    const { _id, aimage, aprtno, flrno, block, rent } = room || {};
+    const { _id, aimage, aprtno, flrno, block, rent, role } = room || {};
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const axiosSecure = useAxiosSecure();
     const [, refetch] = useBook();
+    
 
-
-    const handleAddToBook  = () => {
-        // console.log(food);
+    const handleAddToBook = () => {
         if (user && user.email) {
-            //console.log(user.displayName);
-            //send room to the database
+            const currentDate = new Date();
+            const formattedDate = currentDate.toISOString().split('T')[0];
+    
             const bookRoom = {
                 aprtId: _id,
                 email: user.email,
                 name: user.displayName,
-                aimage, 
-                aprtno, 
-                flrno, 
-                block, 
-                rent
-
-            }
+                aimage,
+                aprtno,
+                flrno,
+                block,
+                rent,
+                agrdate: formattedDate,
+                status: 'pending'
+            };
+    
+            const agreement = {
+                aprtId: _id,
+                email: user.email,
+                name: user.displayName,
+                aimage,
+                aprtno,
+                flrno,
+                block,
+                rent,
+                role:"",
+                agrdate: formattedDate,
+                status: 'pending'
+            };
+    
+            // Make a POST request for "books"
             axiosSecure.post('books', bookRoom)
                 .then(res => {
                     if (res.data.insertedId) {
-                        Swal.fire({
-                            position: "top-end",
-                            icon: "success",
-                            title: `${aprtno} added to your book`,
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        // refetch book to update the book rooms count
-                        refetch()
+                        // Success for "books" request, now make a POST request for "agreement"
+                        axiosSecure.post('agree', agreement)
+                            .then(agreementRes => {
+                                if (agreementRes.data.insertedId) {
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: `${aprtno} added to your book`,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    // refetch book to update the book rooms count
+                                    refetch();
+                                }
+                            })
+                            .catch(error => {
+                                // Handle error for "agreement" request
+                                console.error('Error making "agreement" request:', error);
+                            });
                     }
                 })
-
-
-        }
-        else {
+                .catch(error => {
+                    // Handle error for "books" request
+                    console.error('Error making "books" request:', error);
+                });
+        } else {
+            // User not logged in, show login prompt
             Swal.fire({
                 title: "You are not Login",
                 text: "Please Login add to the book",
@@ -58,12 +87,13 @@ const ApartmentCard = ({ room }) => {
                 confirmButtonText: "Yes, Login"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    //send the user to the login
-                    navigate('/login', { state: { from: location } })
+                    // Send the user to the login page
+                    navigate('/login', { state: { from: location } });
                 }
             });
         }
-    }
+    };
+    
 
     return (
         <div>
@@ -77,7 +107,7 @@ const ApartmentCard = ({ room }) => {
                     <h2 className="card-title">Rent: {rent} $</h2>
 
                     <div className="card-actions justify-end">
-                        <button onClick={handleAddToBook} className="btn btn-primary">Agreement</button>  
+                        <button onClick={handleAddToBook} className="btn btn-primary">Agreement</button>
                     </div>
                 </div>
             </div>
