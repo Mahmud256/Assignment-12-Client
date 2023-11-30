@@ -21,6 +21,7 @@ import PaymentHistory from "../page/Dashboard/PaymentHistory/PaymentHistory";
 import CreateAnnouncement from "../page/Dashboard/CreateAnnouncement/CreateAnnouncement";
 import Announcement from "../page/Dashboard/Announcement/Announcement";
 import Agreement from "../page/Dashboard/Agreement/Agreement";
+import Contact from "../page/Contact/Contact";
 
 const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: '/apartment',
                 element: <Apartment></Apartment>
+            },
+            {
+                path:'/contact',
+                element: <Contact></Contact>
             }
         ]
     },
