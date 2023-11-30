@@ -25,7 +25,7 @@ const CreateAnnouncement = () => {
         console.log(announce);
 
         // Make the POST request with 'userEmail' as a query parameter
-        fetch('http://localhost:5000/announcement', {
+        fetch('https://assignment-12-server-two-opal.vercel.app/announcement', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
