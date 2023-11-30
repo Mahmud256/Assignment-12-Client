@@ -97,14 +97,14 @@ const ApartmentCard = ({ room }) => {
 
     return (
         <div>
-            <div className="card card-side bg-base-100 border">
+            <div className="card w-80 lg:w-auto card-side bg-base-100 border">
                 <figure><img className='w-80 h-64' src={aimage} alt="Apartment" /></figure>
                 <div className="card-body p-3">
-                    <h2 className="card-title">GULSHAN DREAM NEST</h2>
-                    <h2 className="card-title">Apartment no: {aprtno}</h2>
-                    <h2 className="card-title">Floor no: {flrno}</h2>
-                    <h2 className="card-title">Block name: {block}</h2>
-                    <h2 className="card-title">Rent: {rent} $</h2>
+                    <h2 className="card-title text-sm lg:text-lg">GULSHAN DREAM NEST</h2>
+                    <h2 className="card-title text-sm lg:text-lg">Apartment no: {aprtno}</h2>
+                    <h2 className="card-title text-sm lg:text-lg">Floor no: {flrno}</h2>
+                    <h2 className="card-title text-sm lg:text-lg">Block name: {block}</h2>
+                    <h2 className="card-title text-sm lg:text-lg">Rent: {rent} $</h2>
 
                     <div className="card-actions justify-end">
                         <button onClick={handleAddToBook} className="btn btn-primary">Agreement</button>

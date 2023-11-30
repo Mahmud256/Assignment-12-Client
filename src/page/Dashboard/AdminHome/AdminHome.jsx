@@ -2,24 +2,12 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FaDollarSign, FaUsers } from 'react-icons/fa';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, PieChart, Pie, Legend } from 'recharts';
+import {Cell,  PieChart, Pie, Legend } from 'recharts';
 import useBook from '../../../hooks/useBook';
 import { MdMeetingRoom } from 'react-icons/md';
 
-const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
+// const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-import {
-
-
-
-
-
-    Tooltip,
-
-
-} from 'recharts';
-
-
 
 
 
@@ -112,13 +100,13 @@ const AdminHome = () => {
             </div>
             <div className="stats shadow">
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 border'>
-                    <div className="stat border">
+                    {/* <div className="stat border">
                         <div className="stat-figure text-secondary">
                             <FaDollarSign className='text-3xl'></FaDollarSign>
                         </div>
                         <div className="stat-title">Revenue</div>
                         <div className="stat-value">${stats.revenue}</div>
-                    </div>
+                    </div> */}
 
                     <div className="stat border">
                         <div className="stat-figure text-secondary">
@@ -135,7 +123,7 @@ const AdminHome = () => {
                         </div>
                         <div className="stat-title">Avilable Rooms</div>
                         <div className="stat-value">{stats.availableRooms}</div>
-                        <div className="stat-desc">{stats.availableRoomsPercentage.toFixed(0)}%</div>
+                        {/* <div className="stat-desc">{stats.availableRoomsPercentage}%</div> */}
                     </div>
 
                     <div className="stat border">
@@ -162,7 +150,8 @@ const AdminHome = () => {
                         </div>
                         <div className="stat-title">Booked Room</div>
                         <div className="stat-value">{stats.bookedRooms}</div>
-                        <div className="stat-desc">{stats.bookedRoomsPercentage.toFixed(0)}%</div>
+                        {/* <div className="stat-desc">{stats.bookedRoomsPercentage}%</div> */}
+
                     </div>
                 </div>
 
