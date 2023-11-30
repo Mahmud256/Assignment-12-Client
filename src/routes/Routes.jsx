@@ -22,6 +22,8 @@ import CreateAnnouncement from "../page/Dashboard/CreateAnnouncement/CreateAnnou
 import Announcement from "../page/Dashboard/Announcement/Announcement";
 import Agreement from "../page/Dashboard/Agreement/Agreement";
 import Contact from "../page/Contact/Contact";
+import CreateCoupon from "../page/CouponsSection/CreateCoupon";
+import Coupon from "../page/Coupon/Coupon";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +59,11 @@ const router = createBrowserRouter([
             {
                 path:'/contact',
                 element: <Contact></Contact>
+            },
+            {
+                path:'/coupon',
+                element: <Coupon></Coupon>,
+                loader: () => fetch("https://assignment-12-server-two-opal.vercel.app/coupon"),
             }
         ]
     },
@@ -81,6 +88,11 @@ const router = createBrowserRouter([
                 path: 'paymentHistory',
                 element: <PrivateRoute><PaymentHistory></PaymentHistory></PrivateRoute>
             },
+            {
+                path: 'announcement',
+                element: <PrivateRoute><Announcement></Announcement></PrivateRoute>
+                //loader: () => fetch("https://assignment-12-server-two-opal.vercel.app/announcement")
+            },
             // admin routes
             {
                 path: 'users',
@@ -103,9 +115,8 @@ const router = createBrowserRouter([
                 element: <AdminRoute><CreateAnnouncement></CreateAnnouncement></AdminRoute>
             },
             {
-                path: 'announcement',
-                element: <Announcement></Announcement>
-                //loader: () => fetch("https://assignment-12-server-two-opal.vercel.app/announcement")
+                path: 'crcoupon',
+                element: <AdminRoute><CreateCoupon></CreateCoupon></AdminRoute>
             }
         //     {
         //         path: 'additems',

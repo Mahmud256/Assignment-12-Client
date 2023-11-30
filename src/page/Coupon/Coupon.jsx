@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import useAnnouncement from '../../../hooks/useAnnouncement';
-import Pagination from '../../Pagination/Pagination';
-import AnnouncementCard from '../Announcement/AnnouncementCard';
 
+import CouponCard from './CouponCard';
+import { useLoaderData } from 'react-router-dom';
+import Pagination from '../Pagination/Pagination';
 
-const Announcement = () => {
-    const [announcement] = useAnnouncement();
-    console.log(announcement);
+const Coupon = () => {
+    const loadedCoupons = useLoaderData();
+    const [coupons, setCoupons] = useState(loadedCoupons);
+    console.log("cr:",coupons);
     const [currentPage, setCurrentPage] = useState(1);
     const apartmentsPerPage = 6;
 
     const indexOfLastApartment = currentPage * apartmentsPerPage;
     const indexOfFirstApartment = indexOfLastApartment - apartmentsPerPage;
-    const currentApartments = announcement.slice(indexOfFirstApartment, indexOfLastApartment);
+    const currentApartments = coupons.slice(indexOfFirstApartment, indexOfLastApartment);
 
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
@@ -27,10 +28,11 @@ const Announcement = () => {
                 {currentApartments.length > 0 ? (
                     <div className="flex justify-around py-12">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                            {currentApartments.map((announcement) => (
-                                <AnnouncementCard
-                                key={announcement._id} 
-                                announcement={announcement} 
+                            {currentApartments.map((coupon) => (
+                                <CouponCard
+                                key={coupon._id} 
+                                coupon={coupon} 
+                                setCoupons={setCoupons}
                             />
                             ))}
                         </div>
@@ -40,7 +42,7 @@ const Announcement = () => {
                 )}
             </div>
             <Pagination
-                totalApartments={announcement.length}
+                totalApartments={coupons.length}
                 apartmentsPerPage={apartmentsPerPage}
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
@@ -49,4 +51,4 @@ const Announcement = () => {
     );
 };
 
-export default Announcement;
+export default Coupon;

@@ -1,5 +1,6 @@
 // Import necessary libraries and styles
 import React from 'react';
+import { Link } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
 
 // Your CouponsSection component
@@ -16,7 +17,11 @@ const CouponsSection = () => {
             <p className="text-sm">Use code: <span className="text-purple-600">SAVE25</span></p>
           </div>
         </div>
-
+        <div className='m-2'>
+        <Link to="coupon">
+          <button className='btn'>See More Coupon</button>
+        </Link>
+        </div>
       </div>
     </section>
   );
