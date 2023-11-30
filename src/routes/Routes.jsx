@@ -105,7 +105,7 @@ const router = createBrowserRouter([
             {
                 path: 'announcement',
                 element: <Announcement></Announcement>
-                //loader: () => fetch("https://assignment-12-server-two-opal.vercel.app/announcement")
+                //loader: () => fetch("http://localhost:5000/announcement")
             }
         //     {
         //         path: 'additems',

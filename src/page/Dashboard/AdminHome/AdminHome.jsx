@@ -8,6 +8,20 @@ import { MdMeetingRoom } from 'react-icons/md';
 
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+import {
+
+
+
+
+
+    Tooltip,
+
+
+} from 'recharts';
+
+
+
+
 
 const AdminHome = () => {
     const { user } = useAuth();
@@ -66,9 +80,14 @@ const AdminHome = () => {
         );
     };
 
-    const pieChartData = chartData.map(data => {
-        return { name: data.aprtno, value: data.revenue }
-    })
+    // const pieChartData = chartData.map(data => {
+    //     return { name: data.aprtno, value: data.revenue }
+    // })
+
+    const pieChartData = [
+        { name: 'Booked Rooms', value: stats.bookedRooms },
+        { name: 'Available Rooms', value: stats.availableRooms },
+    ];
 
     return (
         <div>
@@ -92,51 +111,83 @@ const AdminHome = () => {
                 </div>
             </div>
             <div className="stats shadow">
-
-                <div className="stat">
-                    <div className="stat-figure text-secondary">
-                        <FaDollarSign className='text-3xl'></FaDollarSign>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 border'>
+                    <div className="stat border">
+                        <div className="stat-figure text-secondary">
+                            <FaDollarSign className='text-3xl'></FaDollarSign>
+                        </div>
+                        <div className="stat-title">Revenue</div>
+                        <div className="stat-value">${stats.revenue}</div>
                     </div>
-                    <div className="stat-title">Revenue</div>
-                    <div className="stat-value">${stats.revenue}</div>
+
+                    <div className="stat border">
+                        <div className="stat-figure text-secondary">
+                            <MdMeetingRoom className='text-3xl'></MdMeetingRoom>
+                        </div>
+                        <div className="stat-title">Total Rooms</div>
+                        <div className="stat-value">{stats.totalRooms}</div>
+                        <div className="stat-desc">↗︎ 400 (22%)</div>
+                    </div>
+
+                    <div className="stat border">
+                        <div className="stat-figure text-secondary">
+                            <MdMeetingRoom className='text-3xl'></MdMeetingRoom>
+                        </div>
+                        <div className="stat-title">Avilable Rooms</div>
+                        <div className="stat-value">{stats.availableRooms}</div>
+                        <div className="stat-desc">{stats.availableRoomsPercentage.toFixed(0)}%</div>
+                    </div>
+
+                    <div className="stat border">
+                        <div className="stat-figure text-secondary">
+                            <FaUsers className='text-3xl'></FaUsers>
+                        </div>
+                        <div className="stat-title">Users</div>
+                        <div className="stat-value">{stats.users}</div>
+                        <div className="stat-desc">↗︎ 400 (22%)</div>
+                    </div>
+
+                    <div className="stat border">
+                        <div className="stat-figure text-secondary">
+                            <FaUsers className='text-3xl'></FaUsers>
+                        </div>
+                        <div className="stat-title">Members</div>
+                        <div className="stat-value">{users.filter(user => user.role === 'member').length}</div>
+                    </div>
+
+
+                    <div className="stat border">
+                        <div className="stat-figure text-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                        </div>
+                        <div className="stat-title">Booked Room</div>
+                        <div className="stat-value">{stats.bookedRooms}</div>
+                        <div className="stat-desc">{stats.bookedRoomsPercentage.toFixed(0)}%</div>
+                    </div>
                 </div>
 
-                <div className="stat">
-                    <div className="stat-figure text-secondary">
-                        <MdMeetingRoom className='text-3xl'></MdMeetingRoom>
-                    </div>
-                    <div className="stat-title">Total Rooms</div>
-                    <div className="stat-value">{stats.apartmentRooms}</div>
-                    <div className="stat-desc">↗︎ 400 (22%)</div>
+
+            </div>
+            <div className="flex">
+                <div className="w-1/2">
+                    <PieChart width={400} height={400}>
+                        <Pie
+                            data={pieChartData}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            outerRadius={80}
+                            fill="#8884d8"
+                            dataKey="value"
+                            label={renderCustomizedLabel}
+                        >
+                            {pieChartData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                            ))}
+                        </Pie>
+                        <Legend />
+                    </PieChart>
                 </div>
-
-                <div className="stat">
-                    <div className="stat-figure text-secondary">
-                        <FaUsers className='text-3xl'></FaUsers>
-                    </div>
-                    <div className="stat-title">Users</div>
-                    <div className="stat-value">{stats.users}</div>
-                    <div className="stat-desc">↗︎ 400 (22%)</div>
-                </div>
-
-                <div className="stat">
-                    <div className="stat-figure text-secondary">
-                        <FaUsers className='text-3xl'></FaUsers>
-                    </div>
-                    <div className="stat-title">Members</div>
-                    <div className="stat-value">{users.filter(user => user.role === 'member').length}</div>
-                </div>
-
-
-                <div className="stat">
-                    <div className="stat-figure text-secondary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
-                    </div>
-                    <div className="stat-title">Booked Room</div>
-                    <div className="stat-value">{stats.books}</div>
-                    <div className="stat-desc">↘︎ 90 (14%)</div>
-                </div>
-
             </div>
             {/* <div className="flex">
                 <div className="w-1/2">
